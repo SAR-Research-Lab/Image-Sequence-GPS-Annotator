@@ -1,0 +1,22 @@
+{
+  "name": "image-sequence-gps-annotater",
+  "version": "1.0.0",
+  "description": "Annotate images with GPS points",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airfield20/Image-Sequence-GPS-Annotater.git"
+  },
+  "author": "Aaron Cofield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airfield20/Image-Sequence-GPS-Annotater/issues"
+  },
+  "homepage": "https://github.com/airfield20/Image-Sequence-GPS-Annotater#readme",
+  "dependencies": {
+    "socketio": "^1.0.0"
+  }
+}
