@@ -17,8 +17,13 @@ function main() {
         console.log("Got image");
         frame_num = msg.frame;
         document.getElementById('frame_num').innerHTML = "Frame Number: " + frame_num;
-
     });
+    $('#set_dir').on('click',function (e) {
+        var directory = $('#directory')[0].value;
+        if(directory != "" && directory != undefined) {
+            socket.emit('set_working_directory', {dir: directory});
+        }
+    })
 }
 
 function get_next_img(){
@@ -34,7 +39,8 @@ function myMap() {
     var mapProp= {
         center:new google.maps.LatLng(42.319655, -83.232128),
         zoom:18,
-        mapTypeId: google.maps.MapTypeId.HYBRID
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        keyboardShortcuts: false
     };
     var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 

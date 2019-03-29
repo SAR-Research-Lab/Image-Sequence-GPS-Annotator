@@ -9,13 +9,15 @@ const htmldir = __dirname + '/../www/';
 define_gets();
 
 var frame_num = -1;
+var working_directory = "/home/aaron/Repos/Image-Sequence-GPS-Annotater/data/example_set/";
 
 io.on('connection', function (socket) {
     console.log("user connected");
     socket.on('next_image', function (req) {
         try {
             frame_num = frame_num + 1;
-            var image_buffer = fs.readFileSync(htmldir + "../data/example_set/Left/Pic" + frame_num.toString() + ".bmp");
+
+            var image_buffer = fs.readFileSync(working_directory + "Left/Pic" + frame_num.toString() + ".bmp");
             socket.emit('image', {found: true, frame: frame_num, buffer: image_buffer.toString('base64')});
             console.log('sent_image');
         }
@@ -25,11 +27,10 @@ io.on('connection', function (socket) {
             console.log("File not found");
         }
     });
-
     socket.on('prev_image', function (req) {
         try {
             frame_num = frame_num - 1;
-            var image_buffer = fs.readFileSync(htmldir + "../data/example_set/Left/Pic" + frame_num.toString() + ".bmp");
+            var image_buffer = fs.readFileSync(working_directory + "Left/Pic" + frame_num.toString() + ".bmp");
             socket.emit('image', {found: true, frame: frame_num, buffer: image_buffer.toString('base64')});
             console.log('sent_image');
         }
@@ -38,6 +39,15 @@ io.on('connection', function (socket) {
             socket.emit('FNF',{exception:e});
             console.log("File not found");
         }
+    });
+    socket.on('set_working_directory', function (req) {
+       working_directory = req.dir;
+        if(working_directory.slice(-1) != '/')
+        {
+            working_directory = working_directory.concat('/');
+        }
+        console.log("working directory set to: " + working_directory);
+       frame_num = -1;
     });
 });
 
