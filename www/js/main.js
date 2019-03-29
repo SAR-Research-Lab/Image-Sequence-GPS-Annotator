@@ -23,6 +23,10 @@ function main() {
         if(directory != "" && directory != undefined) {
             socket.emit('set_working_directory', {dir: directory});
         }
+    });
+    $('#save').on('click',function (e) {
+        alert("This will overwrite any previous saves you have of this data with your current marker locations, OK?");
+        socket.emit('save',{data:"none"});
     })
 }
 
@@ -54,7 +58,8 @@ function placeMarker(map, location) {
         position: location,
         map: map
     });
-    makers.push(marker);
+    markers.push(marker);
+    socket.emit('new_marker',{new_marker:marker.position,frame:frame_num});
     //location.lat() location.lng()
 }
 document.onkeydown = function(e) {
